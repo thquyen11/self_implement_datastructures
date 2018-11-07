@@ -1,5 +1,5 @@
 package datastructure.implement;
 
-public class Array {
+public class LinkedList {
 
 }
