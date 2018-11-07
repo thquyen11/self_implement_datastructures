@@ -17,9 +17,12 @@ public class testStack {
 		
 		testStack.peek();
 		System.out.printf("Pop element %s\n", testStack.pop());
+		testStack.displayStack();
 		
 		testStack.popAll();
 		testStack.pop();
+		
+		
 
 	}
 

@@ -1,5 +1,7 @@
 package datastructure.implement;
 
+import java.util.Arrays;
+
 /**
  * @author QuyenH
  * Basic Stack implementation based on String array
@@ -13,6 +15,8 @@ public class Stack {
 	Stack(int size){
 		stackSize = size;
 		stackArray = new String[size];
+//		Assign value to control the stack's data, avoid garbage value from memory
+		Arrays.fill(stackArray, "-1");
 	}
 	
 	/**
@@ -71,7 +75,7 @@ public class Stack {
 			System.out.println("FATAL: Stack is empty");
 		} else {
 			for (String item : stackArray) {
-				System.out.printf("$s |", item);
+				System.out.printf("%s | ", item);
 			}
 			System.out.println();
 		}
