@@ -6,8 +6,13 @@ public class testQueue {
 		Queue testQueue = new Queue(3);
 		
 		testQueue.insert("1");
+		testQueue.insertPriority("priority");
 		testQueue.insert("2");
-		testQueue.insert("3");
+//		testQueue.insert("3");
+		
+		testQueue.remove();
+		testQueue.peek();
+		
 
 	}
 

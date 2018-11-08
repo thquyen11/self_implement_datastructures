@@ -12,9 +12,7 @@ public class Queue {
 	
 	public void insert(String input) {
 		if((rear+1)<QueueSize) {
-			QueueArray[rear++] = input;
-			QueueSize ++;
-			
+			QueueArray[++rear] = input;		
 			displayQueue();
 		} else {
 			System.out.println("FATAL: Can't insert, Queue is full");
@@ -22,9 +20,12 @@ public class Queue {
 	}
 	
 	public void insertPriority(String input) {
+		System.out.printf("INFO: Queue size %d\n", QueueSize);
+		System.out.printf("INFO: Queue rear %d\n", rear);
 		if((rear+1)<QueueSize) {
 			for(int i=rear; i>=0; i--) {
 				QueueArray[i+1]=QueueArray[i];
+				rear++;
 			}
 			QueueArray[0]=input;
 			displayQueue();
@@ -38,8 +39,8 @@ public class Queue {
 			String removeItem = QueueArray[0];
 			
 //			Shift the queue to the left 1 element
-			for(int i=QueueSize-1; i>=0; i--) {
-				QueueArray[QueueSize-2] = QueueArray[QueueSize-1];
+			for(int i=0; i<rear; i++) {
+				QueueArray[i] = QueueArray[i+1];
 			}			
 			QueueSize--;
 			rear--;	
@@ -58,6 +59,7 @@ public class Queue {
 
 	public String peek() {
 		if(rear > -1) {
+			System.out.printf("INFO: Peek value is %s\n", QueueArray[rear]);
 			return QueueArray[rear];
 		} else {
 			System.out.println("FATAL: Can't peek, Queue is empty");
@@ -70,6 +72,7 @@ public class Queue {
 		for(int i=0; i<=rear; i++) {
 			System.out.printf("%s | ", QueueArray[i]);
 		}
+		System.out.println();
 		
 	}
 }
