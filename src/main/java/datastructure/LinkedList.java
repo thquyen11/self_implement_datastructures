@@ -1,4 +1,4 @@
-package datastructure.implement;
+package datastructure;
 
 public class LinkedList {
 

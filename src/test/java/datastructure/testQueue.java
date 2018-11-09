@@ -1,4 +1,6 @@
-package datastructure.implement;
+package datastructure;
+
+import datastructure.Queue;
 
 public class testQueue {
 

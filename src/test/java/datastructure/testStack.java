@@ -1,4 +1,6 @@
-package datastructure.implement;
+package datastructure;
+
+import datastructure.Stack;
 
 public class testStack {
 
