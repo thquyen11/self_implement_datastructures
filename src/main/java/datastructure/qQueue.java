@@ -1,10 +1,10 @@
 package datastructure;
 
-public class Queue {
+public class qQueue {
 	private String[] QueueArray;
 	private int QueueSize, rear = 0;
 	
-	Queue(int size){
+	qQueue(int size){
 		QueueSize = size;
 		rear = -1;
 		QueueArray = new String[QueueSize];

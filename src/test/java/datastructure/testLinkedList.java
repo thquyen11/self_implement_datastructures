@@ -1,12 +1,12 @@
 package datastructure;
 
-import datastructure.LinkedList;
+import datastructure.qLinkedList;
 
 public class testLinkedList {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		LinkedList list = new LinkedList();
+		qLinkedList list = new qLinkedList();
 		
 		list.add("hello");
 		list.add("world");

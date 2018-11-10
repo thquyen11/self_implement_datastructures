@@ -1,12 +1,12 @@
 package datastructure;
 
-public class LinkedList {
+public class qLinkedList {
 
 	private Node firstNode;
 	private Node lastNode;
 	private int linkedListIndex;
 	
-	public LinkedList() {
+	public qLinkedList() {
 		firstNode = null;
 		lastNode = null;
 		linkedListIndex = -1;

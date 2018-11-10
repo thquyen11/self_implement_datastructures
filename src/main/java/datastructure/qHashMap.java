@@ -1,68 +1,70 @@
 package datastructure;
 
-
 /**
  * @author QuyenH
  *
- * @implementation: create an Array, each element contain a LinkedList (Key, Value)
- * Normally each LinkedList only has 1 node. In case of collosion, LinkedList will have more than one nodes
- * How to find the array index for each (Key, Value) pair: hash the Key then % (Array length - 1)
+ * @implementation: create an Array, each element contain a LinkedList (Key,
+ *                  Value) Normally each LinkedList only has 1 node. In case of
+ *                  collision, LinkedList will have more than one nodes How to
+ *                  find the array index for each (Key, Value) pair: hash the
+ *                  Key then % (Array length - 1)
  */
 public class qHashMap<K, V> {
-	
+
 	private Entry<K, V>[] map;
-	private int mapIndex;	
+	private int mapIndex;
 	private final int INITIAL_CAPACITY = 50;
-	private int len; // length of map
-	private int size; // number of entries inside the map
-	
-	
+	private int len = 0; // length of map
+	private int size = 0; // number of entries inside the map
+	private int noOfColision = 0;
+
 	public qHashMap() {
 		this.map = new Entry[INITIAL_CAPACITY];
 		setLen(INITIAL_CAPACITY);
 	}
-	
+
 	public qHashMap(int capacity) {
-		this.map = new Entry[capacity*2]; // double-size to avoid collision
-		setLen(capacity*2);
+		this.map = new Entry[capacity * 2]; // double-size to avoid collision
+		setLen(capacity * 2);
 	}
-	
+
 	public void put(K key, V value) {
 		Entry<K, V> entry = new Entry<>(key, value, null);
-		mapIndex = hashKey(key) % (getLen()-1);
-		
-		if(map[mapIndex] == null) {
+		mapIndex = hashKey(key) % (getLen() - 1);
+
+		if (map[mapIndex] == null) {
 			map[mapIndex] = entry;
-			setSize(getSize()+1);
+			setSize(getSize() + 1);
 		} else {
 			Entry<K, V> existing = map[mapIndex];
-			while(existing.getNext()!=null) {
+			while (existing.getNext() != null) {
 
-				if(existing.getKey()==key) {
+				if (existing.getKey() == key) {
 					existing.setValue(value);
 					return;
 				}
 				existing = existing.getNext();
 			}
-			
+
 			existing.setNext(entry);
-			setSize(getSize()+1);
+			setSize(getSize() + 1);
+			setNoOfColision(getNoOfColision() + 1);
 		}
 	}
-	
+
 	public V get(String key) {
-		int index = hashKey((K) key) % getLen();
-		
-		if(map[index].getKey()==key) {
+		int index = hashKey((K) key) % (getLen()-1);
+
+		if (map[index].getKey() == key) {
 			return map[index].getValue();
-		} else if (map[index].getNext()!=null) {
+		} else if (map[index].getNext() != null) {
 			Entry<K, V> findEntry = map[index].getNext();
-			while(map[index].getNext()!=null) {
-				if(map[index].getKey()==key) {
+			while (map[index].getNext() != null) {
+				if (map[index].getKey() == key) {
 					return map[index].getValue();
 				}
 				findEntry = findEntry.getNext();
-			}		
+			}
 			System.out.println("Something wrong with the hash function. There is no key in the table");
 			return null;
 		} else {
@@ -70,37 +72,82 @@ public class qHashMap<K, V> {
 			return null;
 		}
 	}
-	
-	private int hashKey(K key) {
-		int hash=0;		
-		char[] charArray = ((String) key).toCharArray();
-		
-		for(int i=0; i< charArray.length; i++) {
-			hash+= charArray[i]*i;
+
+	public String[] keys() {
+		String[] keys = new String[getSize() - getNoOfColision()];
+		int keysIndex = 0;
+
+		for (int i = 0; i < map.length; i++) {
+			if (map[i] == null)
+				continue;
+			keys[keysIndex] = (String) map[i].getKey();
+			keysIndex++;
+		}
+
+		return keys;
+	}
+
+	public String[] values() {
+		String[] values = new String[getSize()];
+		int valuesIndex = 0;
+
+		for (int i = 0; i < map.length; i++) {
+			if (map[i] == null) continue;
+			values[valuesIndex] = (String) map[i].getValue();
+			valuesIndex++;
+			
+			if(map[i].getNext()!=null) {
+				Entry<K, V> currentEntry = map[i];
+				do {
+					currentEntry = currentEntry.getNext();
+					values[valuesIndex] = (String) currentEntry.getValue();
+					valuesIndex++;
+				} while(currentEntry.getNext()!=null);				
+				
+			}
 		}
 		
+		return values;
+	}
+
+	private int hashKey(K key) {
+		int hash = 0;
+		char[] charArray = ((String) key).toCharArray();
+
+		for (int i = 0; i < charArray.length; i++) {
+			hash += charArray[i] * i;
+		}
+
 		return hash;
-	}	
-	
+	}
+
 	public void displayMap() {
-		for(int i=0;i< map.length;i++) {
-			if(map[i]==null) {
+		for (int i = 0; i < map.length; i++) {
+			if (map[i] == null) {
 				continue;
 			}
-			
-			if(map[i].getNext()==null) {
-				System.out.printf("Key: %s | Value: %s |\n", map[i].getKey(),map[i].getValue());
+
+			if (map[i].getNext() == null) {
+				System.out.printf("Key: %s | Value: %s |\n", map[i].getKey(), map[i].getValue());
 			} else {
 				Entry currentNode = map[i];
 
-				while(currentNode.getNext()!=null) {
+				while (currentNode.getNext() != null) {
 					System.out.printf("Key: %s | Value: %s | ", currentNode.getKey(), currentNode.getValue());
-					currentNode=currentNode.getNext();
+					currentNode = currentNode.getNext();
 				}
 				System.out.printf("Key: %s | Value: %s | ", currentNode.getKey(), currentNode.getValue());
 				System.out.println();
 			}
 		}
+	}
+
+	public int getNoOfColision() {
+		return noOfColision;
+	}
+
+	public void setNoOfColision(int noOfColision) {
+		this.noOfColision = noOfColision;
 	}
 
 	public Entry<K, V>[] getNodes() {
@@ -135,13 +182,12 @@ public class qHashMap<K, V> {
 		this.size = size;
 	}
 
-
-	private static class Entry<K, V>{
+	private static class Entry<K, V> {
 		K key;
 		V value;
 		Entry<K, V> next;
-		
-		Entry(K key, V value, Entry<K, V> next){
+
+		Entry(K key, V value, Entry<K, V> next) {
 			this.key = key;
 			this.value = value;
 			this.next = null;
@@ -169,8 +215,7 @@ public class qHashMap<K, V> {
 
 		public void setNext(Entry<K, V> next) {
 			this.next = next;
-		}			
+		}
 	}
-	
-	
+
 }

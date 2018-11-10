@@ -1,11 +1,11 @@
 package datastructure;
 
-import datastructure.Queue;
+import datastructure.qQueue;
 
 public class testQueue {
 
 	public static void main(String[] args) {
-		Queue testQueue = new Queue(3);
+		qQueue testQueue = new qQueue(3);
 		
 		testQueue.insert("1");
 		testQueue.insertPriority("priority");

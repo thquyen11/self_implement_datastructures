@@ -6,13 +6,13 @@ import java.util.Arrays;
  * @author QuyenH
  * Basic Stack implementation based on String array
  */
-public class Stack {
+public class aStack {
 
 	private String[] stackArray;
 	private int stackSize;
 	private int topOfStack = -1;
 	
-	Stack(int size){
+	aStack(int size){
 		stackSize = size;
 		stackArray = new String[size];
 //		Assign value to control the stack's data, avoid garbage value from memory
