@@ -2,7 +2,7 @@ package datastructure;
 
 import algorithms.qArray;
 
-public class qArrayTest {
+public class testArray {
 
 	public static void main(String[] args) {
 		Integer[] array1 = {0,3,4,31};
