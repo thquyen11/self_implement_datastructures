@@ -1,4 +1,6 @@
-package datastructure.implement;
+package datastructure;
+
+import datastructure.LinkedList;
 
 public class testLinkedList {
 
