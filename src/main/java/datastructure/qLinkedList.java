@@ -96,7 +96,7 @@ public class qLinkedList {
 		Node second = this.firstNode.nextNode;
 		this.lastNode=first;
 		
-		while(second.nextNode!=null) {
+		while(second!=null) {
 			Node temp = second.nextNode;
 			second.nextNode=first;
 			first=second;
@@ -104,7 +104,7 @@ public class qLinkedList {
 		}
 		
 		this.firstNode.nextNode=null;
-		this.firstNode=second;
+		this.firstNode=first;
 		
 		return this.firstNode;
 	}
