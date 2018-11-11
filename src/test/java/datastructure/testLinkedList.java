@@ -12,12 +12,14 @@ public class testLinkedList {
 		list.add("world");
 		list.add("Quyen");
 		
-		System.out.printf("list size is: %d\n", list.getSize());
-		System.out.printf("Is Empty: %s\n", list.isEmpty());
-		
-		list.remove(2);
+//		System.out.printf("list size is: %d\n", list.getSize());
+//		System.out.printf("Is Empty: %s\n", list.isEmpty());
+//		
 //		list.remove(2);
-		list.removeAll();
+//		list.removeAll();
+		
+		list.reverse();
+		list.display();
 	}
 
 }

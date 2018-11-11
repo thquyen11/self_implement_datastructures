@@ -87,6 +87,28 @@ public class qLinkedList {
 		System.out.println();
 	}
 	
+	public Node reverse() {
+		if(this.firstNode.nextNode==null) {
+			return this.firstNode;
+		}
+		
+		Node first = this.firstNode;
+		Node second = this.firstNode.nextNode;
+		this.lastNode=first;
+		
+		while(second.nextNode!=null) {
+			Node temp = second.nextNode;
+			second.nextNode=first;
+			first=second;
+			second=temp;
+		}
+		
+		this.firstNode.nextNode=null;
+		this.firstNode=second;
+		
+		return this.firstNode;
+	}
+	
 	private static class Node {
 		private String data;
 		private Node nextNode;
