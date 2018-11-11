@@ -3,15 +3,13 @@ package datastructure;
 /**
  * @author QuyenH
  *
- * @implementation: create an Array, each element contain a LinkedList (Key,
- *                  Value) Normally each LinkedList only has 1 node. In case of
- *                  collision, LinkedList will have more than one nodes How to
- *                  find the array index for each (Key, Value) pair: hash the
- *                  Key then % (Array length - 1)
+ * @implementation: create an Array, each element contain a LinkedList (Key, Value)
+ * Normally each LinkedList only has 1 node. In case of collision, LinkedList will have more than one nodes.               
+ * How to find the array index for each (Key, Value) pair: hash the Key then % (Array length - 1)                 
  */
 public class qHashMap<K, V> {
 
-	private Entry<K, V>[] map;
+	private Bucket<K, V>[] map;
 	private int mapIndex;
 	private final int INITIAL_CAPACITY = 50;
 	private int len = 0; // length of map
@@ -19,24 +17,27 @@ public class qHashMap<K, V> {
 	private int noOfColision = 0;
 
 	public qHashMap() {
-		this.map = new Entry[INITIAL_CAPACITY];
+		this.map = new Bucket[INITIAL_CAPACITY];
 		setLen(INITIAL_CAPACITY);
 	}
 
 	public qHashMap(int capacity) {
-		this.map = new Entry[capacity * 2]; // double-size to avoid collision
+		this.map = new Bucket[capacity * 2]; // double-size to avoid collision
 		setLen(capacity * 2);
 	}
 
 	public void put(K key, V value) {
-		Entry<K, V> entry = new Entry<>(key, value, null);
-		mapIndex = hashKey(key) % (getLen() - 1);
-
+		Bucket<K, V> entry = new Bucket<>(key, value, null);
+		mapIndex = hashKey(key) % (getLen() - 1); // % (Mod) get the index in Array
+		
+		// empty map
 		if (map[mapIndex] == null) {
 			map[mapIndex] = entry;
 			setSize(getSize() + 1);
-		} else {
-			Entry<K, V> existing = map[mapIndex];
+		} 
+		// non-empty map
+		else {
+			Bucket<K, V> existing = map[mapIndex];
 			while (existing.getNext() != null) {
 
 				if (existing.getKey() == key) {
@@ -57,8 +58,11 @@ public class qHashMap<K, V> {
 
 		if (map[index].getKey() == key) {
 			return map[index].getValue();
-		} else if (map[index].getNext() != null) {
-			Entry<K, V> findEntry = map[index].getNext();
+		} 
+		// collision: there is more than one buckets at that node
+		// Iterate through the bucket until find out the required key-value pair
+		else if (map[index].getNext() != null) {
+			Bucket<K, V> findEntry = map[index].getNext();
 			while (map[index].getNext() != null) {
 				if (map[index].getKey() == key) {
 					return map[index].getValue();
@@ -67,12 +71,15 @@ public class qHashMap<K, V> {
 			}
 			System.out.println("Something wrong with the hash function. There is no key in the table");
 			return null;
-		} else {
+		} 
+		// Could not find the key in HashMap
+		else {
 			System.out.println("Something wrong with the hash function. There is no key in the table");
 			return null;
 		}
 	}
-
+	
+	// get array of HashMap's keys
 	public String[] keys() {
 		String[] keys = new String[getSize() - getNoOfColision()];
 		int keysIndex = 0;
@@ -87,6 +94,7 @@ public class qHashMap<K, V> {
 		return keys;
 	}
 
+	// get array of HashMap's values
 	public String[] values() {
 		String[] values = new String[getSize()];
 		int valuesIndex = 0;
@@ -97,7 +105,7 @@ public class qHashMap<K, V> {
 			valuesIndex++;
 			
 			if(map[i].getNext()!=null) {
-				Entry<K, V> currentEntry = map[i];
+				Bucket<K, V> currentEntry = map[i];
 				do {
 					currentEntry = currentEntry.getNext();
 					values[valuesIndex] = (String) currentEntry.getValue();
@@ -110,6 +118,7 @@ public class qHashMap<K, V> {
 		return values;
 	}
 
+	// simple hash function
 	private int hashKey(K key) {
 		int hash = 0;
 		char[] charArray = ((String) key).toCharArray();
@@ -130,7 +139,7 @@ public class qHashMap<K, V> {
 			if (map[i].getNext() == null) {
 				System.out.printf("Key: %s | Value: %s |\n", map[i].getKey(), map[i].getValue());
 			} else {
-				Entry currentNode = map[i];
+				Bucket currentNode = map[i];
 
 				while (currentNode.getNext() != null) {
 					System.out.printf("Key: %s | Value: %s | ", currentNode.getKey(), currentNode.getValue());
@@ -150,11 +159,11 @@ public class qHashMap<K, V> {
 		this.noOfColision = noOfColision;
 	}
 
-	public Entry<K, V>[] getNodes() {
+	public Bucket<K, V>[] getNodes() {
 		return map;
 	}
 
-	public void setNodes(Entry<K, V>[] nodes) {
+	public void setNodes(Bucket<K, V>[] nodes) {
 		this.map = nodes;
 	}
 
@@ -182,12 +191,12 @@ public class qHashMap<K, V> {
 		this.size = size;
 	}
 
-	private static class Entry<K, V> {
+	private static class Bucket<K, V> {
 		K key;
 		V value;
-		Entry<K, V> next;
+		Bucket<K, V> next;
 
-		Entry(K key, V value, Entry<K, V> next) {
+		Bucket(K key, V value, Bucket<K, V> next) {
 			this.key = key;
 			this.value = value;
 			this.next = null;
@@ -209,11 +218,11 @@ public class qHashMap<K, V> {
 			this.value = value;
 		}
 
-		public Entry<K, V> getNext() {
+		public Bucket<K, V> getNext() {
 			return next;
 		}
 
-		public void setNext(Entry<K, V> next) {
+		public void setNext(Bucket<K, V> next) {
 			this.next = next;
 		}
 	}

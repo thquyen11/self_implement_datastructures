@@ -1,5 +1,9 @@
 package datastructure;
 
+/**
+ * @author thquy
+ *
+ */
 public class qLinkedList {
 
 	private Node firstNode;
@@ -12,7 +16,7 @@ public class qLinkedList {
 		linkedListIndex = -1;
 	}
 	
-	public void add(String data) {
+	public boolean add(String data) {
 		if(firstNode == null) {
 			firstNode = new Node(data, null);
 			linkedListIndex++;
@@ -23,17 +27,33 @@ public class qLinkedList {
 			lastNode = temp;
 			linkedListIndex++;
 		}
-		
-		display();
+		return true;
 	}
 	
-	public void remove(int deleteIndex) {
+	public boolean add(String data, int index) {
+		if(index>linkedListIndex) {
+			System.out.println("Index out of LinkedList's length");
+			return false;
+		}
+		
+		Node insertNode = new Node(data, null);
+		Node currentNode = firstNode;
+		for(int i=1; i<index; i++) {
+			currentNode = currentNode.nextNode;
+		}		
+		insertNode.nextNode = currentNode.nextNode;
+		currentNode.nextNode= insertNode;	
+		linkedListIndex++;
+		return true;
+	}
+	
+	public boolean remove(int deleteIndex) {
 		try {
 			if(deleteIndex > linkedListIndex) {
 				throw new IndexOutOfBoundsException();
 			} else if (firstNode == null) {
 				System.out.println("The linkedList is empty");
-				return;
+				return false;
 			} else {
 				Node findNode = firstNode;
 				for(int i=0; i<=deleteIndex;i++) {
@@ -51,13 +71,14 @@ public class qLinkedList {
 						break;
 					}
 				}
+				return true;
 			}
 		} catch (IndexOutOfBoundsException e) {
 			e.printStackTrace();
 			System.out.println("Input index is bigger than LinkedList size");
+			return false;
 		}
 		
-		display();
 	}
 	
 	public void removeAll() {
@@ -87,6 +108,14 @@ public class qLinkedList {
 		System.out.println();
 	}
 	
+	
+	/**
+	 * @reverse the Linked List
+	 * How-it-work: for example LinkedList structure is: Node1 -- Node2 -- Node3
+	 * 1st: start with Node1, Node2: assign Node3 to a tempNode. Reverse the linkedlist direction by assign Node2.nextNode = Node1, Node1.nextNode = null.
+	 * The reason we have to assig Node3 to tempNode in order to keep Node3's address, because the only link to Node3 is Node2.nextNode will be assigned to Node1.
+	 * 2nd: repeat with Node2, Node3 and so on
+	 */
 	public Node reverse() {
 		if(this.firstNode.nextNode==null) {
 			return this.firstNode;

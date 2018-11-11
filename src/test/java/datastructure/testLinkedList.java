@@ -18,7 +18,9 @@ public class testLinkedList {
 //		list.remove(2);
 //		list.removeAll();
 		
-		list.reverse();
+//		list.reverse();
+		list.add("addon", 2);
+		list.add("addon", 5);
 		list.display();
 	}
 

@@ -1,12 +1,12 @@
 package datastructure;
 
-import datastructure.aStack;
+import datastructure.qStack;
 
 public class testStack {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		aStack testStack = new aStack(5);
+		qStack testStack = new qStack(5);
 		
 		testStack.pop();
 		testStack.peek();
