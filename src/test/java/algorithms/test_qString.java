@@ -1,8 +1,8 @@
 package algorithms;
 
-public class qStringTest {
+public class test_qString {
 
-	public static void main(String[] args) {
+	public static void main(qString[] args) {
 		String input = "hello world";
 		qString qString = new qString();
 		
