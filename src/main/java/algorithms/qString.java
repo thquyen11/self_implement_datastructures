@@ -2,8 +2,8 @@ package algorithms;
 
 public class qString {
 	
-	public String reverse(String inputString) {
-		char[] inputArray = inputString.toCharArray();
+	public String reverse(String input) {
+		char[] inputArray = input.toCharArray();
 		
 		int len = inputArray.length;
 		for(int i=0; i< (int) len/2; i++) {
