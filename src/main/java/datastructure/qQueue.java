@@ -1,5 +1,9 @@
 package datastructure;
 
+/**
+ * @author thquyen
+ * @implementation: based on Array
+ */
 public class qQueue {
 	private String[] QueueArray;
 	private int QueueSize, rear = 0;
@@ -19,6 +23,9 @@ public class qQueue {
 		}				
 	}
 	
+	/**
+	 * insert to the top of Queue
+	 */
 	public void insertPriority(String input) {
 		System.out.printf("INFO: Queue size %d\n", QueueSize);
 		System.out.printf("INFO: Queue rear %d\n", rear);
