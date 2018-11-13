@@ -9,7 +9,6 @@ import datastructure.qBinaryTree;
 import datastructure.qBinaryTree.Node;
 
 public class qSearch {
-
 	
 	/**
 	 * @BreadFirstSearch
