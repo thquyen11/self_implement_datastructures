@@ -3,11 +3,11 @@ package datastructure;
 public class qBinaryTree {
 
 	private static class Node {
-		Double value;
+		Integer value;
 		Node leftNode;
 		Node rightNode;
 
-		Node(Double value) {
+		Node(Integer value) {
 			this.value = value;
 			leftNode = null;
 			rightNode = null;
@@ -20,7 +20,7 @@ public class qBinaryTree {
 		root = null;
 	}
 
-	public boolean insert(Double value) {
+	public boolean insert(Integer value) {
 		if (root == null) {
 			root = new Node(value);
 			return true;
@@ -53,7 +53,7 @@ public class qBinaryTree {
 
 	}
 
-	public boolean lookup(Double lookupValue) {
+	public boolean lookup(Integer lookupValue) {
 		if (root == null)
 			return false;
 
@@ -73,7 +73,7 @@ public class qBinaryTree {
 	}
 
 	
-	public boolean remove(Double value) {
+	public boolean remove(Integer value) {
 		
 		// remove value is the root
 		if (value == root.value) {
