@@ -37,7 +37,7 @@ public class test_qSorting {
 //		System.out.println("Sorted");
 		
 		// Quick Sort
-		arrayMergeSort=qSorting.quickSort(arrayMergeSort);
+		arrayMergeSort=qSorting.quickSort(arrayMergeSort, 0, arrayMergeSort.size()-1);
 		System.out.println("Sorted");
 
 	}

@@ -3,14 +3,16 @@ package algorithms;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.sun.org.apache.bcel.internal.generic.SWAP;
+
 public class qSorting {
 	
 	
 	/**
+	 * @MergeSort
 	 * @implement: https://www.udemy.com/master-the-coding-interview-data-structures-algorithms/learn/v4/t/lecture/12406452?start=0 
 	 */
-	public static List<Integer> mergeSort(List<Integer> array){
-		
+	public static List<Integer> mergeSort(List<Integer> array){		
 		// Split until left/right array only have 1 element
 		// Then start merge-sort the result
 		if(array.size()==1) {
@@ -55,58 +57,64 @@ public class qSorting {
 	}
 	
 	
-	public static List<Integer> quickSort(List<Integer> array){
+	/**
+	 * @QuickSort
+	 * @Implement: https://www.udemy.com/master-the-coding-interview-data-structures-algorithms/learn/v4/t/lecture/12406460?start=0
+	 * int left, int right: is new array's window to check each time we divide the array in half
+	 */
+	public static List<Integer> quickSort(List<Integer> array, int left, int right){		
+		int partitionIndex = right; // index to divide the array in half for next recursive loop
+		int pivot = array.get(right);	// pivot value, normally take the last array's element	
 		
-		if(array.isEmpty() || array.size()==1) {
-			return array;
-		} else if (array.size()==2) {
-			if(array.get(0)> array.get(1)) {
-				Integer temp = array.get(0);
-				array.set(0, array.get(1));
-				array.set(1, temp);
-			}	
-			return array;
-		}
-		
-		int pivotIndex = array.size()-1;
-		List<Integer> left;
-		List<Integer> right;
-		
-		for(int i=0;i<pivotIndex;i++) {
-			if(array.get(i)>array.get(pivotIndex)) {
-				Integer temp = array.get(pivotIndex-1);
-				array.set(pivotIndex-1, array.get(pivotIndex));
-				array.set(pivotIndex, array.get(i));
-				array.set(i, temp);
-				pivotIndex=pivotIndex-1;
+		// if there is only 2 elements to check
+		// this logic to avoid the malfunction swap() (below else if block) when there is only 2 arrays' elements
+		if (left==right-1) {
+			if(array.get(left) > array.get(right)) {
+				int temp = array.get(left);
+				array.set(left, array.get(right));
+				array.set(right, temp);
 			}
-		}
+		} else if (left < right) {	
+			// Move all the greater value than pivot value to it's right hand side
+			for (int i = left; i < partitionIndex; i++) {
+				if(array.get(i)>pivot) {
+					if(i==partitionIndex-1) {
+						swap(array, i, partitionIndex);
+					}
+					// array[i] move to pivot position
+					// pivot move to array[pivot-1] position
+					// array[pivot-1] move to array[i] position
+					swap(array, partitionIndex, partitionIndex-1);
+					swap(array, i, partitionIndex);
+					
+					// shift partition index to new pivot position
+					partitionIndex--;
+					// re-check the array[pivot-1] value after moving
+					// there is a case that array[pivot-1] > array[pivot]
+					// without this check we will miss this case
+					i--;
+				}
+			}
+			
+			quickSort(array, left, partitionIndex-1);
+			quickSort(array, partitionIndex+1, right);
+		} 
 		
-		left = array.subList(0, pivotIndex);
-		right = array.subList(pivotIndex+1, array.size());
-		
-		return mergeQuickSort(array.get(pivotIndex),quickSort(left), quickSort(right));	
+		return array;	
 	}
 	
-	private static List<Integer> mergeQuickSort(Integer pivotValue, List<Integer> left, List<Integer> right) {
-		List<Integer> result = new ArrayList<>();
-		
-		if(left.isEmpty()) {
-			result.add(pivotValue);
-			result.addAll(right);
-		} else if(right.isEmpty()) {
-			result.addAll(left);
-			result.add(pivotValue);
-		} else {
-			result.addAll(left);
-			result.add(pivotValue);
-			result.addAll(right);
-		}
-				
-		return result;
+	private static void swap(List<Integer> array, int from, int to) {
+		int temp = array.get(from);
+		array.set(from, array.get(to));
+		array.set(to, temp);	
 	}
 
-
+	/**
+	 * @InsertionSort
+	 * @Implement: repeatedly loop through the array
+	 * If array[i]>array[i-1], move array[i] to the beginning of the array
+	 * InsertionSort is very fast if the array is nearly-sorted
+	 */
 	public static Integer[] insertionSort(Integer[] array) {
 		for(int i=1; i< array.length;i++) {			
 			// move number to the first position
