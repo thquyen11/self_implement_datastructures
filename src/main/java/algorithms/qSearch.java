@@ -13,9 +13,11 @@ public class qSearch {
 	/**
 	 * @BreadFirstSearch
 	 * @Implement:
-	 * Traverse every nodes of Tree in horizontal direction, start from Root node
-	 * Store node's child in the queue. Then loop through the queue to check each node's value
-	 * If found search value => return true
+	 * 		9
+	 * 	4		20
+	 * 1  6   15   170
+	 * 
+	 * result = [9, 4, 20, 1, 6, 15, 170]
 	 */
 	public static boolean breadFirstSearch(qBinaryTree tree, Integer search) {
 		Queue<Node> queueOfNodes = new LinkedList<>();
@@ -42,4 +44,81 @@ public class qSearch {
 		
 		return false;
 	}
+	
+	/**
+	 * @traverseInOrder
+	 * @Implement:
+	 * 		9
+	 * 	4		20
+	 * 1  6   15   170
+	 * 
+	 * result = [1, 4, 6, 9, 15, 20, 170]
+	 */
+	public static List<Integer> traverseInOrder(Node node, List<Integer> result) {
+		
+		// traverse to the left
+		if(node.getLeftNode()!=null) {
+			traverseInOrder(node.getLeftNode(), result);
+		}
+		
+		// add the node.value into result List
+		result.add(node.getValue());
+		
+		// traverse to the right
+		if(node.getRightNode()!=null) {
+			traverseInOrder(node.getRightNode(), result);
+		}
+		
+		return result;		
+	}
+	
+	
+	/**
+	 * @traversePreOrder
+	 * @Implementation
+	 * 		9
+	 * 	4		20
+	 * 1  6   15   170
+	 * 
+	 * result = [9, 4, 1, 6, 20, 15, 170]
+	 */
+	public static List<Integer> traversePreOrder(Node node, List<Integer> result){
+		
+		result.add(node.getValue());
+		
+		if(node.getLeftNode()!=null) {
+			traversePreOrder(node.getLeftNode(), result);
+		}
+		
+		if(node.getRightNode()!=null) {
+			traversePreOrder(node.getRightNode(), result);
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * @traversePostOrder
+	 * @Implementation
+	 * 		9
+	 * 	4		20
+	 * 1  6   15   170
+	 * 
+	 * result = [1, 6, 4, 15, 170, 20, 9]
+	 */
+	public static List<Integer> traversePostOrder(Node node, List<Integer> result){
+		
+		if(node.getLeftNode()!=null) {
+			traversePostOrder(node.getLeftNode(), result);
+		}
+		
+		if(node.getRightNode()!=null) {
+			traversePostOrder(node.getRightNode(), result);
+		}
+		
+		result.add(node.getValue());
+		
+		return result;
+	}
+	
 }
