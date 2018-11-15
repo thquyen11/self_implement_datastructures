@@ -60,7 +60,7 @@ public class qSorting {
 	/**
 	 * @QuickSort
 	 * @Implement: https://www.udemy.com/master-the-coding-interview-data-structures-algorithms/learn/v4/t/lecture/12406460?start=0
-	 * int left, int right: is new array's window to check each time we divide the array in half
+	 * int left - int right: is new array's window to check each time we divide the array in half
 	 */
 	public static List<Integer> quickSort(List<Integer> array, int left, int right){		
 		int partitionIndex = right; // index to divide the array in half for next recursive loop
@@ -112,7 +112,7 @@ public class qSorting {
 	/**
 	 * @InsertionSort
 	 * @Implement: repeatedly loop through the array
-	 * If array[i]>array[i-1], move array[i] to the beginning of the array
+	 * If array[i]<array[i-1], move array[i] to the beginning of the array
 	 * InsertionSort is very fast if the array is nearly-sorted
 	 */
 	public static Integer[] insertionSort(Integer[] array) {
