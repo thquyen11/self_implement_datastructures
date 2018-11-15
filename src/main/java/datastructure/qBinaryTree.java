@@ -2,16 +2,41 @@ package datastructure;
 
 public class qBinaryTree {
 
-	private static class Node {
-		Double value;
+	public static class Node {
+		Integer value;
 		Node leftNode;
 		Node rightNode;
 
-		Node(Double value) {
+		Node(Integer value) {
 			this.value = value;
 			leftNode = null;
 			rightNode = null;
 		}
+
+		public Integer getValue() {
+			return value;
+		}
+
+		public void setValue(Integer value) {
+			this.value = value;
+		}
+
+		public Node getLeftNode() {
+			return leftNode;
+		}
+
+		public void setLeftNode(Node leftNode) {
+			this.leftNode = leftNode;
+		}
+
+		public Node getRightNode() {
+			return rightNode;
+		}
+
+		public void setRightNode(Node rightNode) {
+			this.rightNode = rightNode;
+		}
+		
 	}
 
 	private Node root;
@@ -20,7 +45,7 @@ public class qBinaryTree {
 		root = null;
 	}
 
-	public boolean insert(Double value) {
+	public boolean insert(Integer value) {
 		if (root == null) {
 			root = new Node(value);
 			return true;
@@ -53,7 +78,7 @@ public class qBinaryTree {
 
 	}
 
-	public boolean lookup(Double lookupValue) {
+	public boolean lookup(Integer lookupValue) {
 		if (root == null)
 			return false;
 
@@ -73,7 +98,7 @@ public class qBinaryTree {
 	}
 
 	
-	public boolean remove(Double value) {
+	public boolean remove(Integer value) {
 		
 		// remove value is the root
 		if (value == root.value) {
@@ -153,5 +178,15 @@ public class qBinaryTree {
 		return false;
 
 	}
+
+	public Node getRoot() {
+		return root;
+	}
+
+	public void setRoot(Node root) {
+		this.root = root;
+	}
+	
+	
 
 }
